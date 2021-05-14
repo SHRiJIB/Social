@@ -42,10 +42,11 @@ function Post({ post, setCurId }) {
           {post.tags.map((tag) => `# ${tag}`)}
         </Typography>
       </div>
+      <Typography className={classes.title} variant="h5" gutterBottom>
+        {post.message}
+      </Typography>
       <CardContent>
-        <Typography className={classes.title} variant="h5" gutterBottom>
-          {post.message}
-        </Typography>
+        <Typography gutterBottom>{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => {}}>

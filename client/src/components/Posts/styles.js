@@ -11,4 +11,11 @@ export default makeStyles((theme) => ({
   actionDiv: {
     textAlign: "center",
   },
+  cirpContainer: {
+    display: "flex",
+    width: "60vw",
+    height: "80vh",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));

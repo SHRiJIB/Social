@@ -23,18 +23,11 @@ function Form({ curId, setCurId }) {
       dispatch(updatePost(curId, postdata));
     } else {
       dispatch(createPost(postdata));
-      setPostdata({
-        ...postdata,
-        creator: "",
-        title: "",
-        message: "",
-        tags: "",
-        selectedFile: "",
-      });
     }
+    clear();
   };
-  const clear = (e) => {
-    e.preventDefault();
+  const clear = () => {
+    setCurId(null);
     setPostdata({
       ...postdata,
       creator: "",
@@ -56,7 +49,9 @@ function Form({ curId, setCurId }) {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Typography variant="h6">What is on your mind?</Typography>
+          <Typography variant="h6">
+            {curId ? "Edit your post" : " What is on your mind?"}
+          </Typography>
           <TextField
             name="creator"
             label="Creator"

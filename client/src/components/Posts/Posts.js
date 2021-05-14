@@ -9,7 +9,9 @@ function Posts({ setCurId }) {
   console.log(posts);
   const classes = useStyles();
   return !posts.length ? (
-    <CircularProgress />
+    <div className={classes.cirpContainer}>
+      <CircularProgress />
+    </div>
   ) : (
     <Grid
       className={classes.mainContainer}
