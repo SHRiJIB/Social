@@ -31,4 +31,13 @@ const updatePost = async (req, res) => {
   res.json(updatedPost);
 };
 
-module.exports = { getPosts, createPost, updatePost };
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(404).send("No Post Found");
+  }
+
+  await Post.findByIdAndRemove(id);
+  res.json({ message: "Post deleted successfully" });
+};
+module.exports = { getPosts, createPost, updatePost, deletePost };

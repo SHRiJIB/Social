@@ -5,8 +5,6 @@ import Post from "./Post/Post";
 import useStyles from "./styles";
 function Posts({ setCurId }) {
   const posts = useSelector((state) => state.posts);
-  console.log(posts);
-  console.log(posts);
   const classes = useStyles();
   return !posts.length ? (
     <div className={classes.cirpContainer}>
