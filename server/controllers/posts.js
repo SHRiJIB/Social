@@ -40,4 +40,19 @@ const deletePost = async (req, res) => {
   await Post.findByIdAndRemove(id);
   res.json({ message: "Post deleted successfully" });
 };
-module.exports = { getPosts, createPost, updatePost, deletePost };
+
+const likePost = async (req, res) => {
+  const { id } = req.params;
+  if (!Types.ObjectId.isValid(id)) {
+    return res.status(404).send("No Post Found");
+  }
+
+  const post = await Post.findById(id);
+  const likedPost = await Post.findByIdAndUpdate(
+    id,
+    { likeCount: post.likeCount + 1 },
+    { new: true }
+  );
+  res.json(likedPost);
+};
+module.exports = { getPosts, createPost, updatePost, deletePost, likePost };

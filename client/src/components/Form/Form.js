@@ -87,7 +87,9 @@ function Form({ curId, setCurId }) {
             label="Tags"
             variant="outlined"
             value={postdata.tags}
-            onChange={(e) => setPostdata({ ...postdata, tags: e.target.value })}
+            onChange={(e) =>
+              setPostdata({ ...postdata, tags: e.target.value.split(",") })
+            }
             fullWidth
           />
           <div className={classes.fileInput}>

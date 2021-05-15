@@ -13,7 +13,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import useStyles from "./styles";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../redux/actions/posts";
+import { deletePost, likePost } from "../../../redux/actions/posts";
 
 function Post({ post, setCurId }) {
   const classes = useStyles();
@@ -21,6 +21,11 @@ function Post({ post, setCurId }) {
   const handleDelete = (id) => {
     dispatch(deletePost(id));
   };
+
+  const handleLike = (id) => {
+    dispatch(likePost(id));
+  };
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -46,7 +51,7 @@ function Post({ post, setCurId }) {
 
       <div className={classes.details}>
         <Typography variant="h6" color="textSecondary">
-          {post.tags.map((tag) => `# ${tag}`)}
+          {post.tags.map((tag) => ` #${tag}`)}
         </Typography>
       </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
@@ -56,7 +61,13 @@ function Post({ post, setCurId }) {
         <Typography gutterBottom>{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            handleLike(post._id);
+          }}
+        >
           <ThumbUpAltIcon fontSize="small" /> &nbsp;
           {post.likeCount}
         </Button>
