@@ -55,7 +55,7 @@ function Post({ post, setCurId }) {
         </Typography>
       </div>
       <Typography className={classes.title} variant="h5" gutterBottom>
-        {post.message}
+        {post.title}
       </Typography>
       <CardContent>
         <Typography gutterBottom>{post.message}</Typography>
