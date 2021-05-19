@@ -16,5 +16,8 @@
     "url": "https://github.com/SHRiJIB/mern-social-media/issues"
   },
   "homepage": "https://github.com/SHRiJIB/mern-social-media#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
