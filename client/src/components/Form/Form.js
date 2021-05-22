@@ -112,7 +112,7 @@ function Form({ curId, setCurId }) {
             Post
           </Button>
           <Button
-            variant="contained"
+            variant="text"
             color="secondary"
             size="small"
             onClick={clear}
