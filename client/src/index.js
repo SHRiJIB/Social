@@ -5,11 +5,16 @@ import thunk from "redux-thunk";
 import { createStore, applyMiddleware, compose } from "redux";
 import App from "./App";
 import reducers from "./redux/reducers";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const store = createStore(reducers, applyMiddleware(compose(thunk)));
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
