@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const postsRouter = require("./routes/posts.js");
+const usersRouter = require("./routes/users.js");
 const app = express();
 
 dotenv.config();
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to my social app.");
 });
 app.use("/posts/", postsRouter);
+app.use("/user/", usersRouter);
 
 const PORT = process.env.PORT || 5000;
 
