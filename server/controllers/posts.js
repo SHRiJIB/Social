@@ -43,16 +43,22 @@ const deletePost = async (req, res) => {
 
 const likePost = async (req, res) => {
   const { id } = req.params;
+
+  if (!req.userId) return res.status(400).json({ message: "Unauthenticated" });
+
   if (!Types.ObjectId.isValid(id)) {
     return res.status(404).send("No Post Found");
   }
 
   const post = await Post.findById(id);
-  const likedPost = await Post.findByIdAndUpdate(
-    id,
-    { likeCount: post.likeCount + 1 },
-    { new: true }
-  );
+  const index = post.likes.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    post.likes.push(String(req.userId));
+  } else {
+    post.likes = post.likes.filter((id) => id !== String(req.userId));
+  }
+  const likedPost = await Post.findByIdAndUpdate(id, post, { new: true });
   res.json(likedPost);
 };
 module.exports = { getPosts, createPost, updatePost, deletePost, likePost };
