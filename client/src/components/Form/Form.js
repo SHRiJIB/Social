@@ -4,9 +4,9 @@ import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../redux/actions/posts";
+import { Link } from "react-router-dom";
 function Form({ curId, setCurId }) {
   const [postdata, setPostdata] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -17,12 +17,33 @@ function Form({ curId, setCurId }) {
   );
   const classes = useStyles();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  let userName =
+    user?.result?.firstName &&
+    user?.result?.firstName + " " + user?.result?.lastName;
+  let guserName =
+    user?.result?.givenName &&
+    user?.result?.givenName + " " + user?.result?.familyName;
+
+  userName = userName || guserName;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (curId) {
-      dispatch(updatePost(curId, postdata));
+      dispatch(
+        updatePost(curId, {
+          ...postdata,
+          name: userName,
+        })
+      );
     } else {
-      dispatch(createPost(postdata));
+      dispatch(
+        createPost({
+          ...postdata,
+          name: userName,
+        })
+      );
     }
     clear();
   };
@@ -30,7 +51,6 @@ function Form({ curId, setCurId }) {
     setCurId(null);
     setPostdata({
       ...postdata,
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -40,6 +60,17 @@ function Form({ curId, setCurId }) {
   useEffect(() => {
     if (post) setPostdata(post);
   }, [post]);
+
+  if (!userName) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please <Link to="/auth">log in</Link> to create post and like other
+          post.
+        </Typography>
+      </Paper>
+    );
+  }
   return (
     <div>
       <Paper className={classes.paper}>
@@ -52,16 +83,6 @@ function Form({ curId, setCurId }) {
           <Typography variant="h6">
             {curId ? "Edit your post" : " What is on your mind?"}
           </Typography>
-          <TextField
-            name="creator"
-            label="Creator"
-            variant="outlined"
-            value={postdata.creator}
-            onChange={(e) =>
-              setPostdata({ ...postdata, creator: e.target.value })
-            }
-            fullWidth
-          />
           <TextField
             name="title"
             label="Title"

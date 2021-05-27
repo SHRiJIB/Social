@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   profile: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     width: "400px",
   },
 }));

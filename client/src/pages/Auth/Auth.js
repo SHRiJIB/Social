@@ -43,8 +43,10 @@ export default function Auth() {
     e.preventDefault();
 
     if (isSignUp) {
+      console.log("signup");
       dispatch(signup(formData, history));
     } else {
+      console.log("signin");
       dispatch(signin(formData, history));
     }
   };
@@ -56,6 +58,21 @@ export default function Auth() {
   };
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const googleFailure = () => {
+    console.log("Something went wrong.");
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -122,7 +139,7 @@ export default function Auth() {
             {isSignUp ? "Sign Up" : "Sign In"}
           </Button>
           <GoogleLogin
-            clientId="GOOGLE ID"
+            clientId="949158279393-qqkt9vlvnpn02r0i567eba41778iho45.apps.googleusercontent.com"
             render={(renderprops) => (
               <Button
                 className={classes.googleButton}
@@ -136,6 +153,9 @@ export default function Auth() {
                 {!isSignUp ? "Sign in with google." : "Sign up with google"}
               </Button>
             )}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            cookiePolicy="single_host_origin"
           />
           <Grid container justify="flex-end">
             <Grid item>
