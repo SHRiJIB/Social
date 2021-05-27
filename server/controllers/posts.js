@@ -12,7 +12,8 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
   const post = req.body;
-  const newPost = new Post(post);
+  const newPost = new Post({ ...post, creator: req.userId });
+
   try {
     await newPost.save();
     res.status(201).json(newPost);
@@ -45,7 +46,6 @@ const likePost = async (req, res) => {
   const { id } = req.params;
 
   if (!req.userId) return res.status(400).json({ message: "Unauthenticated" });
-
   if (!Types.ObjectId.isValid(id)) {
     return res.status(404).send("No Post Found");
   }

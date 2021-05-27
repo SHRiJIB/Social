@@ -5,6 +5,7 @@ const postSchema = new schema(
   {
     title: String,
     message: String,
+    name: String,
     creator: String,
     tags: [String],
     selectedFile: String,
