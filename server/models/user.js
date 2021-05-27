@@ -19,9 +19,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    id: {
-      type: String,
-    },
   },
   { timestamps: true }
 );
